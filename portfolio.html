@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio de Bruno</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --pink: #e83e8c;
+            --blue: #007bff;
+            --dark-bg: #0f1219;
+            --darker-bg: #07080d;
+            --card-bg: #1a1f2d;
+            --text-light: #ffffff;
+            --text-gray: #b0b0b0;
+            --gradient: linear-gradient(135deg, var(--pink), var(--blue));
+            --glow-pink: 0 0 20px rgba(232, 62, 140, 0.5);
+            --glow-blue: 0 0 20px rgba(0, 123, 255, 0.5);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header com backdrop blur */
+        header {
+            background: rgba(7, 8, 13, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        header.scrolled {
+            background: rgba(7, 8, 13, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(232, 62, 140, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-weight: bold;
+            letter-spacing: 1px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--glow-pink);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes logoGlow {
+            from {
+                filter: drop-shadow(0 0 5px rgba(232, 62, 140, 0.5));
+            }
+            to {
+                filter: drop-shadow(0 0 15px rgba(232, 62, 140, 0.8));
+            }
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--pink);
+            text-shadow: var(--glow-pink);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8rem 8% 5rem;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2d 50%, #0f1219 100%);
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animação de códigos flutuantes */
+        .floating-code {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: rgba(232, 62, 140, 0.1);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-code.blue {
+            color: rgba(0, 123, 255, 0.1);
+        }
+        
+        .floating-code.pink {
+            color: rgba(232, 62, 140, 0.1);
+        }
+        
+        .floating-code.cyan {
+            color: rgba(0, 255, 255, 0.08);
+        }
+        
+        .floating-code.green {
+            color: rgba(0, 255, 0, 0.08);
+        }
+        
+        /* Diferentes animações para códigos */
+        @keyframes float-right {
+            0% { transform: translateX(-100px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(calc(100vw + 100px)); opacity: 0; }
+        }
+        
+        @keyframes float-left {
+            0% { transform: translateX(calc(100vw + 100px)); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(-100px); opacity: 0; }
+        }
+        
+        @keyframes float-diagonal {
+            0% { transform: translate(-100px, 100px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(calc(100vw + 100px), -100px); opacity: 0; }
+        }
+        
+        @keyframes float-reverse-diagonal {
+            0% { transform: translate(calc(100vw + 100px), 100px); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(-100px, -100px); opacity: 0; }
+        }
+        
+        .float-right { animation: float-right 15s linear infinite; }
+        .float-left { animation: float-left 18s linear infinite; }
+        .float-diagonal { animation: float-diagonal 20s linear infinite; }
+        .float-reverse-diagonal { animation: float-reverse-diagonal 22s linear infinite; }
+        
+        .code-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .code-particle {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            animation: floatCode 20s infinite linear;
+        }
+
+        .code-particle.pink {
+            color: rgba(232, 62, 140, 0.4);
+        }
+
+        .code-particle.blue {
+            color: rgba(0, 123, 255, 0.4);
+        }
+
+        .code-particle.cyan {
+            color: rgba(0, 255, 255, 0.3);
+        }
+
+        .code-particle.green {
+            color: rgba(0, 255, 0, 0.3);
+        }
+
+        .code-particle.yellow {
+            color: rgba(255, 255, 0, 0.3);
+        }
+
+        @keyframes floatCode {
+            0% {
+                transform: translateY(100vh) translateX(-10px);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(10px);
+                opacity: 0;
+            }
+        }
+        
+        /* Partículas brilhantes */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gradient);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: sparkle 3s ease-in-out infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        /* Animações de scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .hero-content {
+            max-width: 50%;
+            z-index: 5;
+        }
+        
+        .hero-content h1 {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(232, 62, 140, 0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            from {
+                filter: drop-shadow(0 0 10px rgba(232, 62, 140, 0.5));
+            }
+            to {
+                filter: drop-shadow(0 0 25px rgba(232, 62, 140, 0.8)) 
+                        drop-shadow(0 0 35px rgba(0, 123, 255, 0.4));
+            }
+        }
+        
+        .hero-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+        
+        /* Botões com efeitos luminosos */
+        .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(232, 62, 140, 0.4);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(232, 62, 140, 0.6),
+                        0 0 30px rgba(0, 123, 255, 0.4);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        .hero-image {
+            width: 40%;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: none;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero-image:hover img {
+            transform: scale(1.05) rotate(2deg);
+        }
+        
+        section {
+            padding: 5rem 8%;
+        }
+        
+        section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: rgba(26, 31, 45, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(232, 62, 140, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(232, 62, 140, 0.2),
+                        0 0 30px rgba(0, 123, 255, 0.1);
+            border-color: rgba(232, 62, 140, 0.3);
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+            color: var(--text-light);
+        }
+        
+        .service-card h3 i {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 10px rgba(232, 62, 140, 0.5));
+        }
+        
+        .service-card p {
+            color: var(--text-gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        
+        .skill-icon {
+            font-size: 3rem;
+            margin: 1rem;
+            color: var(--text-gray);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .skill-icon:hover {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 20px rgba(232, 62, 140, 0.6));
+        }
+        
+        .portfolio-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        /* Cards de projeto com animações avançadas */
+        .portfolio-item {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        background: rgba(26, 31, 45, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.25s ease;
+        will-change: transform, box-shadow;
+        transform: translate3d(0, 0, 0);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(232, 62, 140, 0.1) 0%, 
+                transparent 50%, 
+                rgba(0, 123, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+        
+        .portfolio-item:hover {
+        transform: translate3d(0, -8px, 0) scale(1.01);
+        box-shadow: 0 20px 40px rgba(232, 62, 140, 0.25),
+                0 0 30px rgba(0, 123, 255, 0.15);
+        border-color: rgba(232, 62, 140, 0.4);
+        }
+        
+        .portfolio-item:hover::before {
+            opacity: 1;
+        }
+        
+        .portfolio-item img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        will-change: transform;
+        transform: translate3d(0, 0, 0);
+        }
+        
+        .portfolio-item:hover img {
+        transform: translate3d(0, 0, 0) scale(1.05);
+        }
+        
+        .portfolio-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .portfolio-info h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        
+        .portfolio-info p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .portfolio-links {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .portfolio-links a {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(232, 62, 140, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-links a:hover {
+            background: var(--gradient);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(232, 62, 140, 0.4);
+        }
+        
+        .video-option {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gradient);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 5px 15px rgba(232, 62, 140, 0.4);
+            z-index: 3;
+        }
+        
+        .video-option:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(232, 62, 140, 0.6);
+        }
+        
+        .video-option a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, 
+                rgba(7, 8, 13, 0.9) 0%, 
+                rgba(26, 31, 45, 0.9) 50%, 
+                rgba(7, 8, 13, 0.9) 100%);
+            text-align: center;
+            padding: 6rem 8%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(232, 62, 140, 0.1) 0%, 
+                transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .cta h2 {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            font-size: 2.2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta p {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        #contact {
+            background: linear-gradient(135deg, 
+                rgba(7, 8, 13, 0.95) 0%, 
+                rgba(26, 31, 45, 0.95) 100%);
+            padding-bottom: 6rem;
+        }
+        
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        
+        .contact-heading {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .contact-subheading {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+        
+        .contact-email {
+            color: var(--blue);
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-email:hover {
+            color: var(--pink);
+            text-shadow: var(--glow-pink);
+        }
+        
+        .social-media {
+            margin-top: 2rem;
+        }
+        
+        .social-media h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icons a {
+            color: var(--text-light);
+            background: rgba(26, 31, 45, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: var(--gradient);
+            box-shadow: 0 10px 25px rgba(232, 62, 140, 0.4);
+        }
+        
+        .contact-form {
+            background: rgba(26, 31, 45, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .contact-form h3 {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(15, 18, 25, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--pink);
+            box-shadow: 0 0 20px rgba(232, 62, 140, 0.3);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-button {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            background: var(--gradient);
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(232, 62, 140, 0.4);
+        }
+        
+        .form-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(232, 62, 140, 0.6);
+        }
+        
+        footer {
+            background: rgba(7, 8, 13, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem 8%;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+        .portfolio-item {
+        transition: none;
+        will-change: auto;
+    }
+            
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: 3rem;
+            }
+            
+            .hero-image {
+                width: 70%;
+            }
+            
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            nav ul li {
+                margin: 0 0.7rem;
+            }
+            
+            section {
+                padding: 3rem 5%;
+            }
+            
+            .hero-image {
+                width: 100%;
+            }
+
+            @media (max-width: 768px) {
+    .portfolio-item {
+        transition: none;
+        will-change: auto;
+    }
+    
+    .portfolio-item:hover {
+        transform: none;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .portfolio-item img {
+        transition: none;
+    }
+    
+    .portfolio-item:hover img {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .portfolio-item,
+    .portfolio-item img,
+    .portfolio-links a,
+    .video-option {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">BRUNO GARCIA SIVIERO</div>
+        <nav>
+            <ul>
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#services">SERVIÇOS</a></li>
+                <li><a href="#portfolio">PORTFÓLIO</a></li>
+                <li><a href="#contact">CONTATO</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="code-particles" id="codeParticles"></div>
+        <div class="hero-content">
+            <h1>Do conceito à aplicação: Eu desenvolvo sua solução digital.</h1>
+            <p>Crio aplicativos móbile modernos, responsivos e otimizados para proporcionar a melhor experiência possivel ao usuário.</p>
+            <a href="#contact" class="btn">CONTATE-ME</a>
+        </div>
+        <div class="hero-image">
+            <img src="IMG/Fundo de IMG_0029 Removido.png" alt="Bruno Garcia Siviero">
+        </div>
+    </section>
+
+    <section id="services">
+        <h2>MEUS SERVIÇOS</h2>
+        <div class="services-container">
+            <div class="service-card">
+                <h3><i class="fas fa-mobile-alt"></i> Criação de Aplicativos Móbile</h3>
+                <p>Desenvolvimento de aplicativos móveis para Android e iOS, com interfaces modernas, alta performance e foco na melhor experiência do usuário.</p>
+            </div>
+            <div class="service-card">
+                <h3><i class="fas fa-robot"></i>Agentes de IA</h3>
+                <p>Criação e integração de agentes inteligentes utilizando inteligência artificial para automação de processos, atendimento ao cliente e soluções personalizadas.</p>
+            </div>
+            <div class="service-card">
+                <h3><i class="fas fa-bullhorn"></i> Criação de Landing Pages</h3>
+                <p>Desenvolvimento de landing pages otimizadas para conversão, com design atrativo, carregamento rápido e foco em campanhas de marketing digital.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>SKILLS</h2>
+        <p>As habilidades, ferramentas e tecnologias que utilizo:</p>
+        <br>
+        <br>
+        <div class="skills-container">
+            <i class="fab fa-html5 skill-icon" title="HTML5"></i>
+            <i class="fab fa-css3-alt skill-icon" title="CSS3"></i>
+            <i class="fab fa-js skill-icon" title="JavaScript"></i>
+            <i class="fab fa-react skill-icon" title="React"></i>
+            <i class="fab fa-node-js skill-icon" title="Node.js"></i>
+            <i class="fab fa-git-alt skill-icon" title="Git"></i>
+            <i class="fas fa-mobile-alt skill-icon" title="Flutter (Mobile Dev)"></i>
+            <i class="fab fa-python skill-icon" title="Python"></i>
+            <i class="fab fa-android skill-icon" title="Android"></i>
+            <i class="fab fa-apple skill-icon" title="iOS"></i>
+
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <h2>PORTFÓLIO</h2>
+        <div class="portfolio-container">
+            <!-- Projeto 1 -->
+            <div class="portfolio-item">
+                <img src="IMG/appDelivery.png" alt="Aplicativo de Delivery">
+                <div class="video-option">
+                    <a href="https://www.youtube.com/shorts/9MDuK7jooSQ" target="_blank">
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Aplicativo de Delivery</h3>
+                    <p>Protótipo de um aplicativo de Delivery feito em FlutterFlow utilizando o Supabase como banco de Dados e compátivel com os sistemas Android e iOS.</p>
+                    <div class="portfolio-links">
+                        <!-- <a href="#"><i class="fas fa-external-link-alt"></i> Ver Site</a> -->
+                        <a href="https://github.com/bruunoxd/delivery"><i class="fas fa-code"></i> Ver Código</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto 2 -->
+            <div class="portfolio-item">
+                <img src="IMG/agendamento.png" alt="Aplicativo de agendamento">
+                <div class="video-option">
+                    <a href="https://youtube.com/shorts/CJSQYib-QXA" target="_blank">
+                    <i class="fas fa-play"></i>
+                </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Aplicativo de Agendamento</h3>
+                    <p>Protótipo de um aplicativo de Agendamento feito em FlutterFlow utilizando o Firebase como banco de Dados e compátivel com os sistemas Android e iOS.</p>
+                    <div class="portfolio-links">
+                        <!-- <a href="#"><i class="fas fa-external-link-alt"></i> Ver Site</a> -->
+                        <a href="https://github.com/bruunoxd/agendamento"><i class="fas fa-code"></i> Ver Código</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto 3 -->
+            <div class="portfolio-item">
+                <img src="IMG/biblia.png" alt="Biblia Sagrada">
+                <div class="video-option">
+                    <a href="https://youtube.com/shorts/zX7vYF2DNKs" target="_blank">
+                    <i class="fas fa-play"></i>
+                    </a>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Bíblia Sagrada</h3>
+                    <p>Aplicativo de Bíblia Sagrada feito em FlutterFlow utilizando o Supabase como banco de Dados e compátivel com os sistemas Android e iOS..</p>
+                    <div class="portfolio-links">
+                        <!-- <a href="#"><i class="fas fa-external-link-alt"></i> Ver Site</a> -->
+                        <a href="https://github.com/bruunoxd/biblia"><i class="fas fa-code"></i> Ver Código</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto 4 -->
+            <div class="portfolio-item">
+                <img src="IMG/kanban.png" alt="kanban">
+                <!-- <div class="video-option">
+                    <i class="fas fa-play"></i>
+                </div> -->
+                <div class="portfolio-info">
+                    <h3>Kanban - Help Desk</h3>
+                    <p>Kanban criado para gerenciar e verificar o status de cada chamado em aberto pela equipe de help desk.</p>
+                    <div class="portfolio-links">
+                       <!-- <a href="#"><i class="fas fa-external-link-alt"></i> Ver Site</a> --> 
+                        <a href="https://www.mediafire.com/file/kkptrgfxc3044r2/kanban-helpdesk_%25281%2529.html/file"><i class="fas fa-code"></i> Ver Código</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto 5 -->
+            <div class="portfolio-item">
+                <img src="IMG/tracker.png" alt="Insta Tracker">
+                <!-- <div class="video-option">
+                    <i class="fas fa-play"></i>
+                </div> -->
+                <div class="portfolio-info">
+                    <h3>Insta Tracker</h3>
+                    <p>Página criada para se conectar ao Instagram com a API oficial e descobrir quem não segue de volta.</p>
+                    <div class="portfolio-links">
+                        <!-- <a href="#"><i class="fas fa-external-link-alt"></i> Ver Site</a> -->
+                        <a href="https://www.mediafire.com/file/jwsxsy8sdmrpbju/insta_tracker.html/file"><i class="fas fa-code"></i> Ver Código</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Projeto 6 -->
+            <div class="portfolio-item">
+                <img src="IMG/mega.png" alt="Simulador de Mega Sena">
+                <!-- <div class="video-option">
+                    <i class="fas fa-play"></i>
+                </div> -->
+                <div class="portfolio-info">
+                    <h3>Simulador de Mega Sena</h3>
+                    <p>Página criada para simular jogos da Mega sena com base em seus ultimos 100 jogos.</p>
+                    <div class="portfolio-links">
+                        <!-- <a href="#"><i class="fas fa-external-link-alt"></i> Ver Site</a> -->
+                        <a href="https://www.mediafire.com/file/7u5vczuk1w1lm2t/mega-sena-simulator.html/file"><i class="fas fa-code"></i> Ver Código</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>VAMOS TRABALHAR JUNTOS?</h2>
+        <p>Estou disponível para novos projetos e parcerias. Entre em contato e vamos transformar suas ideias em realidade.</p>
+        <a href="#contact" class="btn">CONTATE-ME</a>
+    </section>
+
+    <section id="contact">
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h2 class="contact-heading">VOCÊ TEM UM PROJETO PARA DISCUTIR?</h2>
+                <h3 class="contact-subheading">ENTRE EM CONTATO</h3>
+                <a href="mailto:bru_nnoxd@hotmail.com.br" class="contact-email">bru_nnoxd@hotmail.com.br</a>
+                
+                <div class="social-media">
+                    <h3>SOCIAL MEDIA</h3>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/bruno-garciaxd/" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/bruunoxd" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.instagram.com/bruunoxd/" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/+5511985135223" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://t.me/bruunoxd" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>CONTACT FORM</h3>
+                <div class="contact-form">
+                    
+<form id="contact-form">
+    <input type="text" name="_honey" style="display:none">
+    <input type="hidden" name="_captcha" value="false">
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+    </div>
+
+    <button type="submit" class="form-button">SEND</button>
+</form>
+
+                </div>
+            </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Portfólio. Todos os direitos reservados. | Design por <a href="#">Bruno Garcia Siviero</a></p>
+    </footer>
+
+<!-- MODAL DE SUCESSO -->
+<div id="success-modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background-color:rgba(0,0,0,0.7);">
+  <div style="background: linear-gradient(135deg, #ff00cc, #3333ff); color:white; padding:30px; border-radius:16px; text-align:center; width:90%; max-width:400px; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%) scale(0.95); opacity:0; animation:popIn 0.4s ease forwards; box-shadow: 0 0 30px rgba(0,0,0,0.5); font-family:sans-serif; font-size:1.1rem;">
+    <p>✅ Obrigado pela mensagem!<br>Logo entrarei em contato para falarmos sobre o projeto.</p>
+    <button onclick="closeModal()" style="margin-top:20px; background:#fff; color:#000; padding:10px 25px; border:none; border-radius:25px; cursor:pointer; font-weight:bold;">Fechar</button>
+  </div>
+</div>
+
+<style>
+@keyframes popIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+</style>
+
+<script>
+    // Criar partículas de código flutuante
+    function createCodeParticles() {
+        const container = document.getElementById('codeParticles');
+        
+        const codeSnippets = [
+            'const app = express();',
+            'function createApp() {',
+            'import React from "react";',
+            'flutter build apk',
+            'class MyApp extends StatelessWidget',
+            'SELECT * FROM users',
+            'git commit -m "update"',
+            'npm install package',
+            'await fetch(url)',
+            'return response.json()',
+            'console.log("Hello World");',
+            'if (condition) {',
+            'for (let i = 0; i < 10; i++)',
+            'const [state, setState] = useState()',
+            'background: linear-gradient()',
+            'width: 100%; height: 100vh;',
+            'flex-direction: column;',
+            'justify-content: center;',
+            'margin: 0 auto;',
+            'padding: 20px;',
+            'border-radius: 10px;',
+            'box-shadow: 0 4px 8px rgba()',
+            'transition: all 0.3s ease;',
+            'transform: translateY(-5px);',
+            'opacity: 0.8;',
+            'z-index: 999;',
+            'position: relative;',
+            'display: flex;',
+            'align-items: center;',
+            'text-align: center;'
+        ];
+        
+        const colors = ['pink', 'blue', 'cyan', 'green', 'yellow'];
+        
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'code-particle ' + colors[Math.floor(Math.random() * colors.length)];
+            particle.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+            
+            // Posição inicial aleatória
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            
+            container.appendChild(particle);
+            
+            // Remove a partícula após a animação
+            setTimeout(() => {
+                if (particle.parentNode) {
+                    particle.parentNode.removeChild(particle);
+                }
+            }, 25000);
+        }
+        
+        // Criar partículas periodicamente
+        setInterval(createParticle, 300);
+        
+        // Criar algumas partículas iniciais
+        for (let i = 0; i < 20; i++) {
+            setTimeout(createParticle, i * 50);
+        }
+    }
+    
+    // Inicializar quando a página carregar
+    document.addEventListener('DOMContentLoaded', createCodeParticles);
+    </script>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const modal = document.getElementById('success-modal');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const actionUrl = "https://formsubmit.co/bru_nnoxd@hotmail.com.br";
+
+    
+
+    try {
+      const response = await fetch(actionUrl, {
+        method: "POST",
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        modal.style.display = "block";
+        form.reset();
+      } else {
+        alert("Erro ao enviar. Tente novamente.");
+      }
+    } catch (error) {
+      alert("Erro inesperado: " + error.message);
+    }
+  });
+
+  function closeModal() {
+    modal.style.display = "none";
+  }
+</script>
+
+</body>
+</html>
